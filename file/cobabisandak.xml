@@ -1,54 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0"
-     xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
-     xmlns:atom="http://www.w3.org/2005/Atom">
-
-  <channel>
-
-    <title>PiqYiP45f</title>
-
-    <description>PiqYiP45f — Movie podcast for VN</description>
-
-    <language>en-us</language>
-
-    <lastBuildDate>Mon, 28 Sep 2026 05:40:25 GMT</lastBuildDate>
-
-    <generator>
-      Movie Podcast Generator V3.1
-    </generator>
-
-    <itunes:author>qq9mPp8Rj</itunes:author>
-
-    <itunes:summary>PiqYiP45f — Movie podcast for VN</itunes:summary>
-
-    <itunes:explicit>true</itunes:explicit>
-
-    <itunes:type>episodic</itunes:type>
-
-    <itunes:category
-      text="TV &amp; Film"/>
-
-    <itunes:image
-      href="https://cdn-icons-png.flaticon.com/512/2798/2798007.png"/>
-
-    <image>
-
-      <url>https://cdn-icons-png.flaticon.com/512/2798/2798007.png</url>
-
-      <title>PiqYiP45f</title>
-
-    </image>
-
-    <itunes:owner>
-
-      <itunes:name>qq9mPp8Rj</itunes:name>
-
-      <itunes:email>raeescohenwew@substack.com</itunes:email>
-
-    </itunes:owner>
-
-
-    <item>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
+<channel>
+<title>
+TCX7Nls7B
+</title>
+<description>
+TCX7Nls7B — Movie podcast for VN
+</description>
+<generator>Substack</generator>
+<lastBuildDate>Mon, 28 Sep 2026 06:12:54 GMT</lastBuildDate>
+<author>
+raeescohenwew
+</author>
+<copyright>
+raeescohenwew
+</copyright>
+<language>
+<![CDATA[ en ]]>
+</language>
+<webMaster>
+<![CDATA[ raeescohenwew@substack.com ]]>
+</webMaster>
+<itunes:author>raeescohenwew</itunes:author>
+<itunes:subtitle>TCX7Nls7B — Movie podcast for VN</itunes:subtitle>
+<itunes:type>episodic</itunes:type>
+<itunes:owner>
+<itunes:name>raeescohenwew</itunes:name>
+<itunes:email>raeescohenwew@substack.com</itunes:email>
+</itunes:owner>
+<itunes:explicit>Yes</itunes:explicit>
+<itunes:category text="TV & Film"/>
+<itunes:category text="TV & Film">
+<itunes:category text="Film Reviews"/>
+</itunes:category>
+<itunes:image href="https://cdn-icons-png.flaticon.com/512/2798/2798007.png"/>
+<item>
       <title>By Any Means (2026) - Full Vietsub + Thuyết Minh</title>
       <description>By Any Means (2026) Vietsub Full HD
 
