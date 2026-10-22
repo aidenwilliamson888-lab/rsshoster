@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Podcast Sitemap & RSS Generator</title>
+<style>
+:root{color-scheme:dark;--bg:#0a0d14;--panel:#111723;--panel2:#0d131e;--line:#263246;--text:#edf3ff;--muted:#98a8c0;--accent:#8b5cf6;--accent2:#22d3ee;--good:#34d399;--warn:#fbbf24;--bad:#fb7185}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#1b2140 0,transparent 38%),var(--bg);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text)}
+.wrap{max-width:1120px;margin:auto;padding:32px 18px 60px}.hero{margin-bottom:24px}.eyebrow{color:var(--accent2);font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:11px}.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.1;margin:8px 0 12px;letter-spacing:-.04em}.hero p{color:var(--muted);max-width:760px;margin:0}.grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:18px}.panel{background:linear-gradient(180deg,rgba(20,29,44,.97),rgba(14,20,31,.97));border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:0 18px 50px #0002}.panel h2{font-size:18px;margin:0 0 16px}.field{margin:15px 0}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}.hint{font-size:12px;color:var(--muted);margin-top:6px}.input,textarea,select{width:100%;background:#090f19;border:1px solid #2a3850;border-radius:10px;padding:12px 13px;color:var(--text);font:inherit;outline:none}.input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px #8b5cf626}textarea{min-height:130px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.btns{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}.btn{border:1px solid #34425a;border-radius:10px;padding:11px 15px;background:#1b2637;color:var(--text);font:inherit;font-weight:750;cursor:pointer}.btn.primary{background:linear-gradient(120deg,#7c3aed,#5b5ce2);border-color:transparent}.btn.cyan{background:#0b3541;border-color:#155e75}.btn:disabled{opacity:.45;cursor:not-allowed}.note{padding:13px 14px;border:1px solid #6b4f1b;background:#33280e55;color:#f8d98b;border-radius:12px;font-size:13px;margin:14px 0}.note strong{color:#ffe6a6}.status{display:flex;gap:10px;align-items:center;margin:13px 0;color:var(--muted);font-size:13px}.dot{width:9px;height:9px;border-radius:50%;background:#64748b;flex:none}.dot.good{background:var(--good)}.dot.bad{background:var(--bad)}.dot.busy{background:var(--warn)}.progress{height:7px;background:#202b3d;border-radius:99px;overflow:hidden;margin:10px 0}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .2s}.log{height:210px;overflow:auto;background:#070b12;border:1px solid #202b3b;border-radius:12px;padding:11px;font:12px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;color:#b8c6db;white-space:pre-wrap}.metricgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:14px 0}.metric{background:#0a111c;border:1px solid #253249;border-radius:12px;padding:12px}.metric b{font-size:22px;display:block}.metric span{font-size:11px;color:var(--muted)}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:18px 0 12px}.tab{padding:8px 12px;border-radius:9px;border:1px solid #2b3850;background:#0c1320;color:var(--muted);cursor:pointer}.tab.active{color:white;border-color:#8b5cf6;background:#35235c}.preview{min-height:150px;max-height:280px;overflow:auto;background:#080d15;border:1px solid #253249;border-radius:12px;padding:12px;font:12px/1.5 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere}.small{font-size:12px;color:var(--muted)}.footer{margin-top:18px;color:var(--muted);font-size:12px;text-align:center}details{margin-top:12px}summary{cursor:pointer;color:#c4b5fd;font-size:13px;font-weight:700}a{color:#67e8f9}@media(max-width:820px){.grid{grid-template-columns:1fr}.wrap{padding:22px 12px 40px}.panel{padding:17px}}@media(max-width:480px){.row{grid-template-columns:1fr}.metricgrid{grid-template-columns:repeat(3,1fr)}.metric{padding:9px}.metric b{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+<div class="eyebrow">Creator utilities · browser-based</div>
+<h1>Podcast Sitemap <span style="color:#a78bfa">&</span> RSS Generator</h1>
+<p>Build a sitemap.xml and an RSS XML file from a public RSS feed, an imported CSV/JSON file, or episode URLs you can verify. Nothing is uploaded to a server by this page.</p>
+</header>
+
+<div class="grid">
+<section class="panel">
+<h2>01 · Source input</h2>
+<div class="field">
+<label for="sourceType">Source type</label>
+<select id="sourceType">
+<option value="pocketcasts">Pocket Casts podcast page</option>
+<option value="rssurl">RSS feed URL</option>
+<option value="paste">Paste RSS XML</option>
+<option value="file">Import CSV / JSON file</option>
+<option value="manual">Paste episode links (one per line)</option>
+</select>
+</div>
+<div class="field" id="urlField">
+<label for="sourceUrl">Podcast page or feed URL</label>
+<input class="input" id="sourceUrl" value="https://pocketcasts.com/podcast/ztovgupfl/3e7b0c00-b08f-013f-bb96-02fff6700f3f" placeholder="https://…">
+<div class="hint">Pocket Casts is a podcast directory/player, not the audio host. Its page may not expose the original feed or all episodes to browser scripts.</div>
+</div>
+<div class="field" id="pasteField" hidden>
+<label for="rssPaste">Paste the full RSS XML</label>
+<textarea id="rssPaste" placeholder="Paste XML starting with &lt;rss… or &lt;feed…"></textarea>
+</div>
+<div class="field" id="fileField" hidden>
+<label for="dataFile">Choose CSV or JSON file</label>
+<input class="input" type="file" id="dataFile" accept=".csv,.json,.txt,application/json,text/csv">
+<div class="hint">Supported fields include title, link/url, description, pubDate/date, guid, audio/enclosure/audioUrl. JSON can be an array or an object with an episodes array.</div>
+</div>
+<div class="field" id="manualField" hidden>
+<label for="manualLinks">Episode page links (one per line)</label>
+<textarea id="manualLinks" placeholder="https://example.com/episode-1&#10;https://example.com/episode-2"></textarea>
+<div class="hint">Only URLs you provide are used; the tool does not guess episode URLs.</div>
+</div>
+<div class="row">
+<div class="field"><label for="showTitle">Podcast title</label><input class="input" id="showTitle" placeholder="Podcast title"></div>
+<div class="field"><label for="showUrl">Podcast homepage URL</label><input class="input" id="showUrl" placeholder="https://example.com/podcast"></div>
+</div>
+<div class="field"><label for="showDescription">Podcast description</label><textarea id="showDescription" style="min-height:76px" placeholder="Optional show description"></textarea></div>
+<div class="row">
+<div class="field"><label for="showLanguage">Language</label><input class="input" id="showLanguage" value="en-us" placeholder="en-us"></div>
+<div class="field"><label for="episodeLimit">Episode limit</label><select id="episodeLimit"><option value="all">All available episodes</option><option value="500">Up to 500</option><option value="1000">Up to 1,000</option></select></div>
+</div>
+<div class="note"><strong>Important:</strong> A sitemap lists public web page URLs. A podcast-ready RSS feed normally needs a real audio enclosure URL for every episode. If the source only contains episode page links, the generated RSS will include those links but cannot guarantee playback in podcast apps.</div>
+<div class="btns">
+<button class="btn primary" id="generateBtn">Generate XML files</button>
+<button class="btn" id="clearBtn">Clear results</button>
+</div>
+</section>
+
+<aside class="panel">
+<h2>02 · Activity & results</h2>
+<div class="status"><span class="dot" id="statusDot"></span><span id="statusText">Ready. Choose a source and generate.</span></div>
+<div class="progress"><div class="bar" id="progressBar"></div></div>
+<div class="metricgrid">
+<div class="metric"><b id="episodeCount">0</b><span>Episodes found</span></div>
+<div class="metric"><b id="pageCount">0</b><span>Page URLs</span></div>
+<div class="metric"><b id="audioCount">0</b><span>Audio URLs</span></div>
+</div>
+<div class="log" id="log" aria-live="polite">[ready] Browser-based generator initialized.
+[info] No source data has been loaded yet.</div>
+<details>
+<summary>Why Pocket Casts may fail</summary>
+<p class="small">Browsers restrict cross-origin requests (CORS), and the Pocket Casts page may block automated access. If direct loading fails, use the original public RSS feed URL, paste the feed XML, or import an exported CSV/JSON file. If you control a server, a small backend proxy may be needed to fetch sources that block browser requests. A proxy cannot bypass authentication or other access controls.</p>
+</details>
+</aside>
+</div>
+
+<section class="panel" style="margin-top:18px">
+<h2>03 · Download generated files</h2>
+<p class="small">Files are generated locally in your browser. Sitemap entries are created only from discovered/provided page URLs. RSS output includes enclosure tags only when a real audio URL exists in the input.</p>
+<div class="btns">
+<button class="btn cyan" id="downloadSitemap" disabled>Download sitemap.xml</button>
+<button class="btn cyan" id="downloadRss" disabled>Download rss.xml</button>
+<button class="btn" id="downloadJson" disabled>Download episodes.json</button>
+</div>
+<div class="tabs">
+<button class="tab active" data-tab="sitemap">Sitemap preview</button>
+<button class="tab" data-tab="rss">RSS preview</button>
+<button class="tab" data-tab="data">Episode data</button>
+</div>
+<div class="preview" id="preview">Generated XML will appear here.</div>
+<div class="footer">Local-only processing · No fake episode links · Validate your RSS before submitting it to podcast directories.</div>
+</section>
+</div>
+<script>
+(() => {
+'use strict';
+const $ = id => document.getElementById(id);
+const state = {episodes:[], sitemap:'', rss:'', json:'', tab:'sitemap'};
+const now = new Date();
+function log(message, level='info') {
+  const box=$('log'); const stamp=new Date().toLocaleTimeString();
+  box.textContent += `\n[${stamp}] [${level}] ${message}`; box.scrollTop=box.scrollHeight;
+}
+function status(message, kind='') {
+  $('statusText').textContent=message; $('statusDot').className='dot'+(kind?' '+kind:'');
+}
+function progress(n){$('progressBar').style.width=Math.max(0,Math.min(100,n))+'%';}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]));}
+function validHttpUrl(s){try{const u=new URL(String(s).trim());return u.protocol==='http:'||u.protocol==='https:';}catch{return false;}}
+function cleanUrl(s){s=String(s??'').trim();return validHttpUrl(s)?s:'';}
+function safeDate(s){const d=s?new Date(s):new Date();return Number.isNaN(d.getTime())?new Date():d;}
+function iso(d){return safeDate(d).toISOString();}
+function pick(o, keys){for(const k of keys){if(o&&o[k]!=null&&String(o[k]).trim()!=='')return o[k];}return '';}
+function normalizeEpisode(raw, index=0){
+  if(typeof raw==='string') raw={link:raw,title:raw};
+  const title=String(pick(raw,['title','name','episodeTitle','episode_title'])||`Episode ${index+1}`).trim();
+  const link=cleanUrl(pick(raw,['link','url','episodeUrl','episode_url','pageUrl','page_url','web_url']));
+  const audio=cleanUrl(pick(raw,['audio','enclosure','audioUrl','audio_url','enclosureUrl','enclosure_url','mp3','mediaUrl','media_url']));
+  const desc=String(pick(raw,['description','summary','content','subtitle'])||'').trim();
+  const date=pick(raw,['pubDate','pubdate','date','published','publishedAt','published_at']);
+  const guid=String(pick(raw,['guid','id','uuid'])||link||audio||`${title}-${index+1}`).trim();
+  return {title,link,audio,description:desc,date:iso(date),guid};
+}
+function parseRss(xml){
+  const doc=new DOMParser().parseFromString(xml,'application/xml');
+  if(doc.querySelector('parsererror')) throw new Error('RSS/XML parse error. Check that the full XML was pasted.');
+  const channel=doc.querySelector('channel');
+  const feedTitle=(channel?.querySelector(':scope > title')?.textContent||doc.querySelector('feed > title')?.textContent||'').trim();
+  const feedDesc=(channel?.querySelector(':scope > description')?.textContent||doc.querySelector('feed > subtitle')?.textContent||'').trim();
+  const feedLink=channel?.querySelector(':scope > link')?.textContent?.trim()||doc.querySelector('feed > link[rel="alternate"]')?.getAttribute('href')||'';
+  const items=[...doc.querySelectorAll('channel > item, feed > entry')];
+  const eps=items.map((item,i)=>{
+    const get=(sel)=>item.querySelector(sel);
+    const linkEl=get('link');
+    const link=linkEl?.getAttribute('href')||linkEl?.textContent||'';
+    const enc=get('enclosure');
+    const atomEnc=get('link[rel="enclosure"]');
+    const date=get('pubDate')?.textContent||get('published')?.textContent||get('updated')?.textContent||'';
+    const content=get('content\\:encoded')?.textContent||get('description')?.textContent||get('summary')?.textContent||'';
+    return normalizeEpisode({
+      title:get('title')?.textContent||`Episode ${i+1}`,
+      link, audio:enc?.getAttribute('url')||atomEnc?.getAttribute('href')||'',
+      description:content, date,
+      guid:get('guid')?.textContent||get('id')?.textContent||link
+    },i);
+  });
+  return {title:feedTitle,description:feedDesc,link:feedLink,episodes:eps};
+}
+function parseCsv(text){
+  const rows=[];let row=[],field='',quoted=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i],n=text[i+1];
+    if(c==='"'&&quoted&&n==='"'){field+='"';i++;}
+    else if(c==='"'){quoted=!quoted;}
+    else if(c===','&&!quoted){row.push(field);field='';}
+    else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&n==='\n')i++;row.push(field);if(row.some(v=>v.trim()))rows.push(row);row=[];field='';}
+    else field+=c;
+  }
+  row.push(field);if(row.some(v=>v.trim()))rows.push(row);
+  if(!rows.length)return [];
+  const headers=rows.shift().map(h=>h.trim().toLowerCase().replace(/[\s-]+/g,'_'));
+  return rows.map(r=>Object.fromEntries(headers.map((h,i)=>[h,r[i]??''])));
+}
+function parseImported(text, filename=''){
+  const trimmed=text.trim();
+  if(filename.toLowerCase().endsWith('.json')||trimmed.startsWith('[')||trimmed.startsWith('{')){
+    const obj=JSON.parse(trimmed);
+    if(obj.rssXml||obj.rss_xml) return parseRss(obj.rssXml||obj.rss_xml).episodes;
+    const list=Array.isArray(obj)?obj:(obj.episodes||obj.items||obj.data||[]);
+    if(!Array.isArray(list))throw new Error('JSON must be an array or contain an episodes/items/data array.');
+    return list.map(normalizeEpisode);
+  }
+  return parseCsv(text).map(normalizeEpisode);
+}
+function limitEpisodes(eps){
+  const limit=$('episodeLimit').value;
+  return limit==='all'?eps:eps.slice(0,Number(limit));
+}
+function setShowMetadata(meta={}){
+  if(meta.title&&!$('showTitle').value.trim())$('showTitle').value=meta.title;
+  if(meta.description&&!$('showDescription').value.trim())$('showDescription').value=meta.description;
+  if(meta.link&&!$('showUrl').value.trim())$('showUrl').value=cleanUrl(meta.link);
+}
+function uniqueEpisodes(eps){
+  const seen=new Set();return eps.filter(e=>{const key=e.link||e.guid||e.title;if(seen.has(key))return false;seen.add(key);return true;});
+}
+function buildSitemap(eps){
+  const urls=uniqueEpisodes(eps).filter(e=>e.link);
+  const homepage=cleanUrl($('showUrl').value);
+  const all=[...(homepage?[{link:homepage,date:new Date().toISOString()}]:[]),...urls];
+  const seen=new Set();
+  const entries=all.filter(e=>{if(!e.link||seen.has(e.link))return false;seen.add(e.link);return true;});
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries.map(e=>`  <url>\n    <loc>${esc(e.link)}</loc>\n    <lastmod>${esc(iso(e.date).slice(0,10))}</lastmod>\n  </url>`).join('\n')}\n</urlset>\n`;
+}
+function buildRss(eps){
+  const title=$('showTitle').value.trim()||'Podcast Feed';
+  const homepage=cleanUrl($('showUrl').value);
+  const desc=$('showDescription').value.trim()||'RSS feed generated from supplied episode data.';
+  const lang=$('showLanguage').value.trim()||'en-us';
+  const items=eps.map(e=>{
+    const enclosure=e.audio?`\n      <enclosure url="${esc(e.audio)}" type="audio/mpeg" />`:'';
+    const link=e.link||homepage;
+    const guid=e.guid||link||e.title;
+    return `    <item>\n      <title>${esc(e.title)}</title>\n      <link>${esc(link)}</link>\n      <guid isPermaLink="${validHttpUrl(guid)?'true':'false'}">${esc(guid)}</guid>\n      <pubDate>${esc(new Date(e.date).toUTCString())}</pubDate>\n      <description>${esc(e.description)}</description>${enclosure}\n    </item>`;
+  }).join('\n');
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">\n  <channel>\n    <title>${esc(title)}</title>\n    <link>${esc(homepage)}</link>\n    <description>${esc(desc)}</description>\n    <language>${esc(lang)}</language>\n    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>\n${items}\n  </channel>\n</rss>\n`;
+}
+function render(){
+  $('episodeCount').textContent=state.episodes.length;
+  $('pageCount').textContent=state.episodes.filter(e=>e.link).length+(cleanUrl($('showUrl').value)?1:0);
+  $('audioCount').textContent=state.episodes.filter(e=>e.audio).length;
+  $('downloadSitemap').disabled=!state.sitemap;
+  $('downloadRss').disabled=!state.rss;
+  $('downloadJson').disabled=!state.json;
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===state.tab));
+  const p=$('preview');
+  p.textContent=state.tab==='sitemap'?(state.sitemap||'Generate files to preview sitemap.xml.'):state.tab==='rss'?(state.rss||'Generate files to preview rss.xml.'): (state.json||'Episode data will appear here.');
+}
+function download(filename,content,type='application/xml;charset=utf-8'){
+  const blob=new Blob([content],{type});const a=document.createElement('a');const url=URL.createObjectURL(blob);
+  a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+async function fetchText(url){
+  const res=await fetch(url,{method:'GET',mode:'cors',credentials:'omit',redirect:'follow'});
+  if(!res.ok)throw new Error(`HTTP ${res.status}`);
+  return await res.text();
+}
+async function generate(){
+  $('generateBtn').disabled=true;progress(8);status('Reading source…','busy');
+  try{
+    const type=$('sourceType').value;let eps=[],meta={};
+    if(type==='pocketcasts'){
+      const url=cleanUrl($('sourceUrl').value);
+      if(!url||!url.includes('pocketcasts.com/'))throw new Error('Enter a valid Pocket Casts URL.');
+      log('Trying to read the Pocket Casts page directly. Browser CORS or server-side blocking may prevent access.');
+      try{
+        const html=await fetchText(url);progress(35);
+        const doc=new DOMParser().parseFromString(html,'text/html');
+        const title=doc.querySelector('meta[property="og:title"]')?.content||doc.querySelector('title')?.textContent||'';
+        const desc=doc.querySelector('meta[property="og:description"]')?.content||'';
+        meta={title,description:desc,link:url};
+        const links=[...doc.querySelectorAll('a[href]')].map(a=>({title:(a.textContent||a.getAttribute('aria-label')||'').trim(),link:a.href})).filter(x=>x.link.includes('pocketcasts.com')&&/episode/i.test(x.link));
+        eps=links.map((e,i)=>normalizeEpisode(e,i));
+        if(!eps.length)throw new Error('Page loaded, but no verifiable episode links were found in its HTML.');
+        log(`Found ${eps.length} episode-like links in the page HTML.`);
+      }catch(err){
+        log(`Pocket Casts direct access failed: ${err.message}`,'warn');
+        throw new Error('Pocket Casts did not expose a usable episode list to this browser. Use the original RSS URL, paste the RSS XML, or import a CSV/JSON file in the source selector.');
+      }
+    } else if(type==='rssurl'){
+      const url=cleanUrl($('sourceUrl').value);if(!url)throw new Error('Enter a valid RSS feed URL.');
+      log('Fetching the RSS URL from your browser. If CORS blocks it, use Paste RSS XML instead.');
+      const xml=await fetchText(url);progress(45);const parsed=parseRss(xml);eps=parsed.episodes;meta=parsed;
+      if(!eps.length)throw new Error('No RSS items/episodes were found in this feed.');
+      log(`Parsed ${eps.length} items from RSS.`);
+    } else if(type==='paste'){
+      const xml=$('rssPaste').value.trim();if(!xml)throw new Error('Paste RSS XML first.');
+      const parsed=parseRss(xml);eps=parsed.episodes;meta=parsed;
+      if(!eps.length)throw new Error('No items/episodes found in pasted XML.');
+      log(`Parsed ${eps.length} episodes from pasted XML.`);
+    } else if(type==='file'){
+      const file=$('dataFile').files[0];if(!file)throw new Error('Choose a CSV or JSON file first.');
+      const text=await file.text();eps=parseImported(text,file.name);
+      if(!eps.length)throw new Error('No episodes were found in this file.');
+      log(`Imported ${eps.length} rows from ${file.name}.`);
+    } else {
+      const lines=$('manualLinks').value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+      if(!lines.length)throw new Error('Paste at least one episode URL.');
+      const invalid=lines.filter(u=>!validHttpUrl(u));
+      if(invalid.length)throw new Error(`${invalid.length} line(s) are not valid HTTP/HTTPS URLs. Fix them before generating.`);
+      eps=lines.map((link,i)=>normalizeEpisode({link,title:`Episode ${i+1}`,guid:link},i));
+      log(`Accepted ${eps.length} manually supplied URLs. Titles are placeholders because no episode metadata was supplied.`,'warn');
+    }
+    progress(62);setShowMetadata(meta);
+    eps=uniqueEpisodes(eps.map(normalizeEpisode)).filter(e=>e.link||e.audio);
+    eps=limitEpisodes(eps);
+    if(!eps.length)throw new Error('No usable episode URLs were found. Sitemap/RSS was not generated.');
+    state.episodes=eps;state.sitemap=buildSitemap(eps);state.rss=buildRss(eps);
+    state.json=JSON.stringify({generatedAt:new Date().toISOString(),show:{title:$('showTitle').value,homepage:$('showUrl').value,description:$('showDescription').value,language:$('showLanguage').value},episodes:eps},null,2);
+    progress(100);status(`Generated files for ${eps.length} episode(s).`,'good');
+    log(`Generated sitemap.xml (${eps.filter(e=>e.link).length} episode page URLs) and rss.xml (${eps.filter(e=>e.audio).length} real audio enclosures).`);
+    if(eps.some(e=>!e.audio))log('Some episodes have no audio URL. Their RSS items are not playable podcast episodes until a real enclosure URL is supplied.','warn');
+    state.tab='sitemap';render();
+  }catch(err){progress(0);status(err.message,'bad');log(err.message,'error');}
+  finally{$('generateBtn').disabled=false;}
+}
+function toggleFields(){
+  const type=$('sourceType').value;
+  $('urlField').hidden=!(type==='pocketcasts'||type==='rssurl');
+  $('pasteField').hidden=type!=='paste';
+  $('fileField').hidden=type!=='file';
+  $('manualField').hidden=type!=='manual';
+  if(type==='rssurl')$('sourceUrl').placeholder='https://example.com/feed.xml';
+  if(type==='pocketcasts')$('sourceUrl').placeholder='https://pocketcasts.com/podcast/…';
+}
+$('sourceType').addEventListener('change',toggleFields);
+$('generateBtn').addEventListener('click',generate);
+$('clearBtn').addEventListener('click',()=>{
+  state.episodes=[];state.sitemap='';state.rss='';state.json='';progress(0);status('Cleared. Ready for a new source.');$('log').textContent='[ready] Results cleared.';render();
+});
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{state.tab=b.dataset.tab;render();}));
+$('downloadSitemap').addEventListener('click',()=>download('sitemap.xml',state.sitemap));
+$('downloadRss').addEventListener('click',()=>download('rss.xml',state.rss));
+$('downloadJson').addEventListener('click',()=>download('episodes.json',state.json,'application/json;charset=utf-8'));
+$('dataFile').addEventListener('change',e=>{if(e.target.files[0])log(`Selected file: ${e.target.files[0].name}`);});
+toggleFields();render();
+})();
+</script>
+</body>
+</html>
